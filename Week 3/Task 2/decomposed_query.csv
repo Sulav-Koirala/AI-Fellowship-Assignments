@@ -1,0 +1,51 @@
+Question,Intent,Tables,Columns,Filters,Joins
+List all products,list all products,products,*,None,None
+Get all customers,get all customers,customers,*,None,None
+Show all orders,show all orders,orders,*,None,None
+List all employees,list all employees,employees,*,None,None
+Get all offices,get all offices,offices,*,None,None
+Show all product lines,show all product lines,productlines,*,None,None
+List all payments,list all payments,payments,*,None,None
+Get product names and prices,get product names and prices,products,productName; buyPrice; MSRP,None,None
+Get customer names and cities,get customer names and cities,customers,customerName; city,None,None
+List employee first and last names,list employee first and last names,employees,firstName; lastName,None,None
+Get all order dates,list all order dates,orders,orderDate,None,None
+Show product vendor list,list all product vendors,products,productVendor,None,None
+Get all product codes,list all product codes,products,productCode,None,None
+List all countries from offices,list all office countries,offices,country,None,None
+Show all order statuses,list all order statuses,orders,status,None,None
+Get all payment amounts,list all payment amounts,payments,amount,None,None
+List all job titles,list all employee job titles,employees,jobTitle,None,None
+Get customer phone numbers,list all customer phone numbers,customers,phone,None,None
+Show product MSRP values,list all product MSRP values,products,MSRP,None,None
+List order numbers,list all order numbers,orders,orderNumber,None,None
+Get orders with customer names,list orders with customer names,orders; customers,orders.orderNumber; orders.orderDate; orders.requiredDate; orders.shippedDate; orders.status; orders.comments; customers.customerName,None,orders.customerNumber = customers.customerNumber
+Get employees with office city,list employees with office city,employees; offices,employees.employeeNumber; employees.lastName; employees.firstName; employees.extension; employees.email; employees.jobTitle; offices.city,None,employees.officeCode = offices.officeCode
+Get payments with customer names,list payments with customer names,payments; customers,payments.checkNumber; payments.paymentDate; payments.amount; customers.customerName,None,payments.customerNumber = customers.customerNumber
+Get order details with product names,list order details with product names,orderdetails; products,orderdetails.quantityOrdered; orderdetails.priceEach; orderdetails.orderLineNumber; products.productName,None,orderdetails.productCode = products.productCode
+Get products with product line description,list products with product line description,products; productlines,products.productCode; products.productName; products.productScale; products.productVendor; products.productDescription; products.quantityInStock; products.buyPrice; products.MSRP; productlines.textDescription,None,products.productLine = productlines.productLine
+Get customers with sales rep names,list customers with sales representative names,customers; employees,customers.customerName; customers.contactLastName; customers.contactFirstName; customers.phone; customers.addressLine1; customers.city; customers.country; employees.firstName; employees.lastName,None,customers.salesRepEmployeeNumber = employees.employeeNumber
+Get orders with customer city,list orders with customer city,orders; customers,orders.orderNumber; orders.orderDate; orders.requiredDate; orders.shippedDate; orders.status; orders.comments; customers.city,None,orders.customerNumber = customers.customerNumber
+Get employees and their manager,list employees and their managers,employees,employees.firstName; employees.lastName; employees.jobTitle,None,employees.reportsTo = employees.employeeNumber
+Get orderdetails with product vendor,list order details with product vendor,orderdetails; products,orderdetails.quantityOrdered; orderdetails.priceEach; orderdetails.orderLineNumber; products.productVendor,None,orderdetails.productCode = products.productCode
+Get payments with customer country,list payments with customer country,payments; customers,payments.checkNumber; payments.paymentDate; payments.amount; customers.country,None,payments.customerNumber = customers.customerNumber
+Count customers per country,count customers by country,customers,country; customerNumber,None,None
+Total payments per customer,calculate total payments for each customer,payments,customerNumber; amount,None,None
+Number of orders per status,count orders by status,orders,status; orderNumber,None,None
+Products per product line,count products by product line,products,productLine; productCode,None,None
+Employees per office,count employees by office,employees,officeCode; employeeNumber,None,None
+Total stock per product vendor,calculate total stock by product vendor,products,productVendor; quantityInStock,None,None
+Average buy price per product line,calculate average buy price by product line,products,productLine; buyPrice,None,None
+Orders per customer,count orders by customer,orders,customerNumber; orderNumber,None,None
+Max MSRP per product line,find maximum MSRP by product line,products,productLine; MSRP,None,None
+Min buy price per vendor,find minimum buy price by product vendor,products,productVendor; buyPrice,None,None
+Total number of customers,count total customers,customers,customerNumber,None,None
+Total number of products,count total products,products,productCode,None,None
+Total revenue from payments,calculate total revenue from payments,payments,amount,None,None
+Average product price,calculate average product price,products,buyPrice,None,None
+Max payment amount,find maximum payment amount,payments,amount,None,None
+Min payment amount,find minimum payment amount,payments,amount,None,None
+Count total orders,count total orders,orders,orderNumber,None,None
+Total quantity in stock,calculate total quantity in stock,products,quantityInStock,None,None
+Average MSRP,calculate average MSRP,products,MSRP,None,None
+Number of employees,count total employees,employees,employeeNumber,None,None
