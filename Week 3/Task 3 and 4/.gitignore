@@ -1,0 +1,10 @@
+.env
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/*.log
+logs/log.json
+logs/postgres/
+sql_questions_only.csv
+seed.sql

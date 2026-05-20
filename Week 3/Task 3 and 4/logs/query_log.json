@@ -1,0 +1,223 @@
+[
+  {
+    "timestamp": "2026-05-20T14:10:04",
+    "question": "How many shipped orders are from USA customers?",
+    "sql": "SELECT COUNT(o.\"orderNumber\") AS \"shipped_orders_count\"\nFROM orders o\nJOIN customers c ON o.\"customerNumber\" = c.\"customerNumber\"\nWHERE o.status = 'Shipped' AND c.country = 'USA';",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "shipped_orders_count": 105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-20T14:10:33",
+    "question": "Delete customers",
+    "sql": "SELECT \n    c.\"customerNumber\", \n    c.\"customerName\", \n    c.\"contactLastName\", \n    c.\"contactFirstName\", \n    c.phone, \n    c.\"addressLine1\", \n    c.\"addressLine2\", \n    c.city, \n    c.state, \n    c.\"postalCode\", \n    c.country, \n    c.\"salesRepEmployeeNumber\", \n    c.\"creditLimit\"\nFROM customers c;",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "customerNumber": 103,
+        "customerName": "Atelier graphique",
+        "contactLastName": "Schmitt",
+        "contactFirstName": "Carine ",
+        "phone": "40.32.2555",
+        "addressLine1": "54, rue Royale",
+        "addressLine2": null,
+        "city": "Nantes",
+        "state": null,
+        "postalCode": "44000",
+        "country": "France",
+        "salesRepEmployeeNumber": 1370,
+        "creditLimit": 21000.0
+      },
+      {
+        "customerNumber": 112,
+        "customerName": "Signal Gift Stores",
+        "contactLastName": "King",
+        "contactFirstName": "Jean",
+        "phone": "7025551838",
+        "addressLine1": "8489 Strong St.",
+        "addressLine2": null,
+        "city": "Las Vegas",
+        "state": "NV",
+        "postalCode": "83030",
+        "country": "USA",
+        "salesRepEmployeeNumber": 1166,
+        "creditLimit": 71800.0
+      },
+      {
+        "customerNumber": 114,
+        "customerName": "Australian Collectors, Co.",
+        "contactLastName": "Ferguson",
+        "contactFirstName": "Peter",
+        "phone": "03 9520 4555",
+        "addressLine1": "636 St Kilda Road",
+        "addressLine2": "Level 3",
+        "city": "Melbourne",
+        "state": "Victoria",
+        "postalCode": "3004",
+        "country": "Australia",
+        "salesRepEmployeeNumber": 1611,
+        "creditLimit": 117300.0
+      },
+      {
+        "customerNumber": 119,
+        "customerName": "La Rochelle Gifts",
+        "contactLastName": "Labrune",
+        "contactFirstName": "Janine ",
+        "phone": "40.67.8555",
+        "addressLine1": "67, rue des Cinquante Otages",
+        "addressLine2": null,
+        "city": "Nantes",
+        "state": null,
+        "postalCode": "44000",
+        "country": "France",
+        "salesRepEmployeeNumber": 1370,
+        "creditLimit": 118200.0
+      },
+      {
+        "customerNumber": 121,
+        "customerName": "Baane Mini Imports",
+        "contactLastName": "Bergulfsen",
+        "contactFirstName": "Jonas ",
+        "phone": "07-98 9555",
+        "addressLine1": "Erling Skakkes gate 78",
+        "addressLine2": null,
+        "city": "Stavern",
+        "state": null,
+        "postalCode": "4110",
+        "country": "Norway",
+        "salesRepEmployeeNumber": 1504,
+        "creditLimit": 81700.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-20T14:12:15",
+    "question": "show customers with their sales rep employee",
+    "sql": "SELECT\n  c.\"customerName\",\n  e.\"firstName\" AS \"salesRepFirstName\",\n  e.\"lastName\" AS \"salesRepLastName\"\nFROM customers c\nJOIN employees e ON c.\"salesRepEmployeeNumber\" = e.\"employeeNumber\";",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "customerName": "Atelier graphique",
+        "salesRepFirstName": "Gerard",
+        "salesRepLastName": "Hernandez"
+      },
+      {
+        "customerName": "Signal Gift Stores",
+        "salesRepFirstName": "Leslie",
+        "salesRepLastName": "Thompson"
+      },
+      {
+        "customerName": "Australian Collectors, Co.",
+        "salesRepFirstName": "Andy",
+        "salesRepLastName": "Fixter"
+      },
+      {
+        "customerName": "La Rochelle Gifts",
+        "salesRepFirstName": "Gerard",
+        "salesRepLastName": "Hernandez"
+      },
+      {
+        "customerName": "Baane Mini Imports",
+        "salesRepFirstName": "Barry",
+        "salesRepLastName": "Jones"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-20T14:14:42",
+    "question": "hello",
+    "sql": "SELECT 'Hello! How can I help you today?' AS greeting;",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "greeting": "Hello! How can I help you today?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-20T14:28:02",
+    "question": "show all the customers with their sales rep employee",
+    "sql": "SELECT\n  c.\"customerNumber\",\n  c.\"customerName\",\n  e.\"employeeNumber\",\n  e.\"firstName\",\n  e.\"lastName\"\nFROM customers c\nINNER JOIN employees e ON c.\"salesRepEmployeeNumber\" = e.\"employeeNumber\";",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "customerNumber": 103,
+        "customerName": "Atelier graphique",
+        "employeeNumber": 1370,
+        "firstName": "Gerard",
+        "lastName": "Hernandez"
+      },
+      {
+        "customerNumber": 112,
+        "customerName": "Signal Gift Stores",
+        "employeeNumber": 1166,
+        "firstName": "Leslie",
+        "lastName": "Thompson"
+      },
+      {
+        "customerNumber": 114,
+        "customerName": "Australian Collectors, Co.",
+        "employeeNumber": 1611,
+        "firstName": "Andy",
+        "lastName": "Fixter"
+      },
+      {
+        "customerNumber": 119,
+        "customerName": "La Rochelle Gifts",
+        "employeeNumber": 1370,
+        "firstName": "Gerard",
+        "lastName": "Hernandez"
+      },
+      {
+        "customerNumber": 121,
+        "customerName": "Baane Mini Imports",
+        "employeeNumber": 1504,
+        "firstName": "Barry",
+        "lastName": "Jones"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-20T21:02:55",
+    "question": "Min buy price per vendor",
+    "sql": "SELECT\n  \"productVendor\",\n  MIN(\"buyPrice\") AS min_buy_price\nFROM products\nGROUP BY\n  \"productVendor\";",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "productVendor": "Welly Diecast Productions",
+        "min_buy_price": 24.23
+      },
+      {
+        "productVendor": "Motor City Art Classics",
+        "min_buy_price": 22.57
+      },
+      {
+        "productVendor": "Classic Metal Creations",
+        "min_buy_price": 20.61
+      },
+      {
+        "productVendor": "Studio M Art Models",
+        "min_buy_price": 23.14
+      },
+      {
+        "productVendor": "Exoto Designs",
+        "min_buy_price": 43.26
+      }
+    ]
+  }
+]

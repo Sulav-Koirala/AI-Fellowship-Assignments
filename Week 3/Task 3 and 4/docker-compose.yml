@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: week3_postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - ./seed.sql:/docker-entrypoint-initdb.d/seed.sql:ro
+      - ./logs/postgres:/var/log/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    command: >
+      postgres
+      -c logging_collector=on
+      -c log_directory=/var/log/postgresql
+      -c log_filename=postgresql.log
+      -c log_statement=all
+
+  api:
+    build: .
+    container_name: week3_text_to_sql_api
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ./:/usr/src/app
+      - ./logs:/usr/src/app/logs
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload --access-log
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      QUERY_LOG_FILE: /usr/src/app/logs/query_log.json
+      LOG_FILE: /usr/src/app/logs/app.log
+    depends_on:
+      postgres:
+        condition: service_healthy
