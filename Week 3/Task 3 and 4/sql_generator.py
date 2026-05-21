@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import time
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -46,6 +47,7 @@ def decompose_question(question: str) -> dict:
 
 
 def generate_sql(question: str, decomposition: dict) -> str:
+    time.sleep(4)
     prompt_template = PromptTemplate.from_template(SQL_GENERATION_PROMPT)
     chain = prompt_template | llm | StrOutputParser()
     
@@ -61,6 +63,7 @@ def generate_sql(question: str, decomposition: dict) -> str:
 
 
 def fix_sql(question: str, failed_sql: str, error: str) -> str:
+    time.sleep(4)
     prompt_template = PromptTemplate.from_template(SQL_FIX_PROMPT)
     chain = prompt_template | llm | StrOutputParser()
     
@@ -77,6 +80,7 @@ def fix_sql(question: str, failed_sql: str, error: str) -> str:
 
 
 def generate_summary(question: str, rows: list[dict]) -> str:
+    time.sleep(4)
     prompt_template = PromptTemplate.from_template(SUMMARY_PROMPT)
     chain = prompt_template | llm | StrOutputParser()
     

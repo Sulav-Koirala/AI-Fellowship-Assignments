@@ -1,8 +1,13 @@
 import csv
 import time
-from agent_pipeline import run_text_to_sql
+from pathlib import Path
+from dotenv import load_dotenv
 
-def run_evaluation():
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+
+from agent_pipeline import run_text_to_sql
+def run_evaluation(max_questions=5):
     questions = []
     with open("sql_questions_only.csv", mode="r", encoding="utf-8-sig") as f:
         reader = csv.reader(f)
@@ -10,6 +15,8 @@ def run_evaluation():
         for row in reader:
             if row:
                 questions.append(row[0].strip())
+
+    questions = questions[:max_questions]
 
     total = len(questions)
     if total == 0:
@@ -26,6 +33,7 @@ def run_evaluation():
         try:
             state = run_text_to_sql(question)
         except Exception as e:
+            print(f"!!! CRITICAL ERROR ON ITEM {idx}: {e}")
             state = {
                 "status": "failed",
                 "sql": "N/A",
@@ -52,6 +60,8 @@ def run_evaluation():
             "status": state["status"].upper(),
             "latency": round(latency, 2)
         })
+        
+        time.sleep(4)
 
     success_rate = (successful / total) * 100
     avg_latency = total_latency / total
@@ -79,4 +89,4 @@ def run_evaluation():
     print("Evaluation completed successfully.")
 
 if __name__ == "__main__":
-    run_evaluation()
+    run_evaluation(max_questions=3)

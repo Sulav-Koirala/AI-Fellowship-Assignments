@@ -219,5 +219,242 @@
         "min_buy_price": 43.26
       }
     ]
+  },
+  {
+    "timestamp": "2026-05-21T11:57:02",
+    "question": "give me 5 data from aalu table",
+    "sql": "SELECT * FROM aalu LIMIT 5;",
+    "status": "failed",
+    "error": "relation \"aalu\" does not exist\nLINE 1: SELECT * FROM aalu LIMIT 5;\n                      ^\n",
+    "retry_count": 0,
+    "result": []
+  },
+  {
+    "timestamp": "2026-05-21T11:57:12",
+    "question": "give me 5 data from aalu table",
+    "sql": "SELECT * FROM products LIMIT 5;",
+    "status": "success",
+    "error": null,
+    "retry_count": 1,
+    "result": [
+      {
+        "productCode": "S10_1678",
+        "productName": "1969 Harley Davidson Ultimate Chopper",
+        "productLine": "Motorcycles",
+        "productScale": "1:10",
+        "productVendor": "Min Lin Diecast",
+        "productDescription": "This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.",
+        "quantityInStock": 7933,
+        "buyPrice": 48.81,
+        "MSRP": 95.7
+      },
+      {
+        "productCode": "S10_1949",
+        "productName": "1952 Alpine Renault 1300",
+        "productLine": "Classic Cars",
+        "productScale": "1:10",
+        "productVendor": "Classic Metal Creations",
+        "productDescription": "Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.",
+        "quantityInStock": 7305,
+        "buyPrice": 98.58,
+        "MSRP": 214.3
+      },
+      {
+        "productCode": "S10_2016",
+        "productName": "1996 Moto Guzzi 1100i",
+        "productLine": "Motorcycles",
+        "productScale": "1:10",
+        "productVendor": "Highway 66 Mini Classics",
+        "productDescription": "Official Moto Guzzi logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.",
+        "quantityInStock": 6625,
+        "buyPrice": 68.99,
+        "MSRP": 118.94
+      },
+      {
+        "productCode": "S10_4698",
+        "productName": "2003 Harley-Davidson Eagle Drag Bike",
+        "productLine": "Motorcycles",
+        "productScale": "1:10",
+        "productVendor": "Red Start Diecast",
+        "productDescription": "Model features, official Harley Davidson logos and insignias, detachable rear wheelie bar, heavy diecast metal with resin parts, authentic multi-color tampo-printed graphics, separate engine drive belts, free-turning front fork, rotating tires and rear racing slick, certificate of authenticity, detailed engine, display stand , precision diecast replica, baked enamel finish, 1:10 scale model, removable fender, seat and tank cover piece for displaying the superior detail of the v-twin engine",
+        "quantityInStock": 5582,
+        "buyPrice": 91.02,
+        "MSRP": 193.66
+      },
+      {
+        "productCode": "S10_4757",
+        "productName": "1972 Alfa Romeo GTA",
+        "productLine": "Classic Cars",
+        "productScale": "1:10",
+        "productVendor": "Motor City Art Classics",
+        "productDescription": "Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.",
+        "quantityInStock": 3252,
+        "buyPrice": 85.68,
+        "MSRP": 136.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-21T12:10:17",
+    "question": "How many shipped orders are from USA customers?",
+    "sql": "SELECT COUNT(T1.\"orderNumber\")\nFROM orders AS T1\nINNER JOIN customers AS T2\n  ON T1.\"customerNumber\" = T2.\"customerNumber\"\nWHERE\n  T1.status = 'Shipped' AND T2.country = 'USA';",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "count": 105
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-21T18:04:23",
+    "question": "List all products",
+    "sql": "SELECT\n  T1.\"productCode\",\n  T1.\"productName\",\n  T1.\"productLine\",\n  T1.\"productScale\",\n  T1.\"productVendor\",\n  T1.\"productDescription\",\n  T1.\"quantityInStock\",\n  T1.\"buyPrice\",\n  T1.\"MSRP\"\nFROM products AS T1;",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "productCode": "S10_1678",
+        "productName": "1969 Harley Davidson Ultimate Chopper",
+        "productLine": "Motorcycles",
+        "productScale": "1:10",
+        "productVendor": "Min Lin Diecast",
+        "productDescription": "This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.",
+        "quantityInStock": 7933,
+        "buyPrice": 48.81,
+        "MSRP": 95.7
+      },
+      {
+        "productCode": "S10_1949",
+        "productName": "1952 Alpine Renault 1300",
+        "productLine": "Classic Cars",
+        "productScale": "1:10",
+        "productVendor": "Classic Metal Creations",
+        "productDescription": "Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.",
+        "quantityInStock": 7305,
+        "buyPrice": 98.58,
+        "MSRP": 214.3
+      },
+      {
+        "productCode": "S10_2016",
+        "productName": "1996 Moto Guzzi 1100i",
+        "productLine": "Motorcycles",
+        "productScale": "1:10",
+        "productVendor": "Highway 66 Mini Classics",
+        "productDescription": "Official Moto Guzzi logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.",
+        "quantityInStock": 6625,
+        "buyPrice": 68.99,
+        "MSRP": 118.94
+      },
+      {
+        "productCode": "S10_4698",
+        "productName": "2003 Harley-Davidson Eagle Drag Bike",
+        "productLine": "Motorcycles",
+        "productScale": "1:10",
+        "productVendor": "Red Start Diecast",
+        "productDescription": "Model features, official Harley Davidson logos and insignias, detachable rear wheelie bar, heavy diecast metal with resin parts, authentic multi-color tampo-printed graphics, separate engine drive belts, free-turning front fork, rotating tires and rear racing slick, certificate of authenticity, detailed engine, display stand , precision diecast replica, baked enamel finish, 1:10 scale model, removable fender, seat and tank cover piece for displaying the superior detail of the v-twin engine",
+        "quantityInStock": 5582,
+        "buyPrice": 91.02,
+        "MSRP": 193.66
+      },
+      {
+        "productCode": "S10_4757",
+        "productName": "1972 Alfa Romeo GTA",
+        "productLine": "Classic Cars",
+        "productScale": "1:10",
+        "productVendor": "Motor City Art Classics",
+        "productDescription": "Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.",
+        "quantityInStock": 3252,
+        "buyPrice": 85.68,
+        "MSRP": 136.0
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-21T18:04:42",
+    "question": "Get all customers",
+    "sql": "SELECT\n  \"customerNumber\",\n  \"customerName\",\n  \"contactLastName\",\n  \"contactFirstName\",\n  phone,\n  \"addressLine1\",\n  \"addressLine2\",\n  city,\n  state,\n  \"postalCode\",\n  country,\n  \"salesRepEmployeeNumber\",\n  \"creditLimit\"\nFROM customers;",
+    "status": "success",
+    "error": null,
+    "retry_count": 0,
+    "result": [
+      {
+        "customerNumber": 103,
+        "customerName": "Atelier graphique",
+        "contactLastName": "Schmitt",
+        "contactFirstName": "Carine ",
+        "phone": "40.32.2555",
+        "addressLine1": "54, rue Royale",
+        "addressLine2": null,
+        "city": "Nantes",
+        "state": null,
+        "postalCode": "44000",
+        "country": "France",
+        "salesRepEmployeeNumber": 1370,
+        "creditLimit": 21000.0
+      },
+      {
+        "customerNumber": 112,
+        "customerName": "Signal Gift Stores",
+        "contactLastName": "King",
+        "contactFirstName": "Jean",
+        "phone": "7025551838",
+        "addressLine1": "8489 Strong St.",
+        "addressLine2": null,
+        "city": "Las Vegas",
+        "state": "NV",
+        "postalCode": "83030",
+        "country": "USA",
+        "salesRepEmployeeNumber": 1166,
+        "creditLimit": 71800.0
+      },
+      {
+        "customerNumber": 114,
+        "customerName": "Australian Collectors, Co.",
+        "contactLastName": "Ferguson",
+        "contactFirstName": "Peter",
+        "phone": "03 9520 4555",
+        "addressLine1": "636 St Kilda Road",
+        "addressLine2": "Level 3",
+        "city": "Melbourne",
+        "state": "Victoria",
+        "postalCode": "3004",
+        "country": "Australia",
+        "salesRepEmployeeNumber": 1611,
+        "creditLimit": 117300.0
+      },
+      {
+        "customerNumber": 119,
+        "customerName": "La Rochelle Gifts",
+        "contactLastName": "Labrune",
+        "contactFirstName": "Janine ",
+        "phone": "40.67.8555",
+        "addressLine1": "67, rue des Cinquante Otages",
+        "addressLine2": null,
+        "city": "Nantes",
+        "state": null,
+        "postalCode": "44000",
+        "country": "France",
+        "salesRepEmployeeNumber": 1370,
+        "creditLimit": 118200.0
+      },
+      {
+        "customerNumber": 121,
+        "customerName": "Baane Mini Imports",
+        "contactLastName": "Bergulfsen",
+        "contactFirstName": "Jonas ",
+        "phone": "07-98 9555",
+        "addressLine1": "Erling Skakkes gate 78",
+        "addressLine2": null,
+        "city": "Stavern",
+        "state": null,
+        "postalCode": "4110",
+        "country": "Norway",
+        "salesRepEmployeeNumber": 1504,
+        "creditLimit": 81700.0
+      }
+    ]
   }
 ]

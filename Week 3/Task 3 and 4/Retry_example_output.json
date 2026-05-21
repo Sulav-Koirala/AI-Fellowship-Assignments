@@ -1,0 +1,76 @@
+{
+  "status": "success",
+  "question": "give me 5 data from aalu table",
+  "decomposition": {
+    "intent": "Retrieve a limited number of rows from a specified table.",
+    "tables": [
+      "aalu"
+    ],
+    "columns": null,
+    "filters": "LIMIT 5",
+    "joins": null,
+    "aggregation": null
+  },
+  "sql": "SELECT * FROM products LIMIT 5;",
+  "result": [
+    {
+      "productCode": "S10_1678",
+      "productName": "1969 Harley Davidson Ultimate Chopper",
+      "productLine": "Motorcycles",
+      "productScale": "1:10",
+      "productVendor": "Min Lin Diecast",
+      "productDescription": "This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.",
+      "quantityInStock": 7933,
+      "buyPrice": 48.81,
+      "MSRP": 95.7
+    },
+    {
+      "productCode": "S10_1949",
+      "productName": "1952 Alpine Renault 1300",
+      "productLine": "Classic Cars",
+      "productScale": "1:10",
+      "productVendor": "Classic Metal Creations",
+      "productDescription": "Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.",
+      "quantityInStock": 7305,
+      "buyPrice": 98.58,
+      "MSRP": 214.3
+    },
+    {
+      "productCode": "S10_2016",
+      "productName": "1996 Moto Guzzi 1100i",
+      "productLine": "Motorcycles",
+      "productScale": "1:10",
+      "productVendor": "Highway 66 Mini Classics",
+      "productDescription": "Official Moto Guzzi logos and insignias, saddle bags located on side of motorcycle, detailed engine, working steering, working suspension, two leather seats, luggage rack, dual exhaust pipes, small saddle bag located on handle bars, two-tone paint with chrome accents, superior die-cast detail , rotating wheels , working kick stand, diecast metal with plastic parts and baked enamel finish.",
+      "quantityInStock": 6625,
+      "buyPrice": 68.99,
+      "MSRP": 118.94
+    },
+    {
+      "productCode": "S10_4698",
+      "productName": "2003 Harley-Davidson Eagle Drag Bike",
+      "productLine": "Motorcycles",
+      "productScale": "1:10",
+      "productVendor": "Red Start Diecast",
+      "productDescription": "Model features, official Harley Davidson logos and insignias, detachable rear wheelie bar, heavy diecast metal with resin parts, authentic multi-color tampo-printed graphics, separate engine drive belts, free-turning front fork, rotating tires and rear racing slick, certificate of authenticity, detailed engine, display stand , precision diecast replica, baked enamel finish, 1:10 scale model, removable fender, seat and tank cover piece for displaying the superior detail of the v-twin engine",
+      "quantityInStock": 5582,
+      "buyPrice": 91.02,
+      "MSRP": 193.66
+    },
+    {
+      "productCode": "S10_4757",
+      "productName": "1972 Alfa Romeo GTA",
+      "productLine": "Classic Cars",
+      "productScale": "1:10",
+      "productVendor": "Motor City Art Classics",
+      "productDescription": "Features include: Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.",
+      "quantityInStock": 3252,
+      "buyPrice": 85.68,
+      "MSRP": 136
+    }
+  ],
+  "summary": "Five data entries were retrieved from the table.",
+  "retry_count": 1,
+  "error": null,
+  "elapsed_ms": 29539.55
+}
