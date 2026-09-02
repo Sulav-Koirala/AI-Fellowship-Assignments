@@ -1,0 +1,3 @@
+RAG stands for Retrieval-Augmented Generation. It combines a retrieval step,
+which searches a knowledge base for relevant text, with a generation step,
+where an LLM produces an answer grounded in that retrieved text.
