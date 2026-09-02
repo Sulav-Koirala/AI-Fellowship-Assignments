@@ -83,7 +83,7 @@ async def chat_endpoint(request: Request, body: ChatRequest):
     except Exception:
         raise HTTPException(status_code=500, detail="Something went wrong processing your request.")
 
-    payload = {"answer": reply.answer, "sources": reply.sources, "confidence": result.confidence}
+    payload = {"answer": reply.answer, "sources": reply.sources, "confidence": reply.confidence}
     response_cache[key] = payload
     return payload | {"cached": False}
 
