@@ -11,6 +11,7 @@ from app.llm_client import ask
 from app.prompts import build_messages
 from app.rag import retrieve, ingest_docs_folder
 from app.tools import TOOLS, execute_tool_calls
+from app.struct_output import ask_structured, AssistantAnswer
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -25,7 +26,7 @@ response_cache: dict[str, str] = {}
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=8),
        retry=retry_if_exception_type(Exception))
-async def call_model(messages, use_fallback=False):
+async def call_model(messages, use_fallback=False) -> AssistantAnswer:
     msg = await ask(messages, temperature=0.2, tools=TOOLS, use_fallback=use_fallback)
 
     if msg.tool_calls:
@@ -43,9 +44,11 @@ async def call_model(messages, use_fallback=False):
         }
         messages.append(assistant_msg)
         messages = await execute_tool_calls(messages, msg.tool_calls)
-        msg = await ask(messages, temperature=0.2, use_fallback=use_fallback)
 
-    return msg.content
+    last_user_msg = next(m["content"] for m in reversed(messages) if m["role"] == "user")
+    context = next((m["content"].removeprefix("Context:\n") for m in messages
+                     if m["role"] == "system" and m["content"].startswith("Context:")), "")
+    return await ask_structured(last_user_msg, context=context, use_fallback=use_fallback)
 
 
 async def call_with_fallback(messages):
@@ -80,8 +83,9 @@ async def chat_endpoint(request: Request, body: ChatRequest):
     except Exception:
         raise HTTPException(status_code=500, detail="Something went wrong processing your request.")
 
-    response_cache[key] = reply
-    return {"reply": reply, "cached": False}
+    payload = {"answer": reply.answer, "sources": reply.sources, "confidence": result.confidence}
+    response_cache[key] = payload
+    return payload | {"cached": False}
 
 
 @app.exception_handler(RateLimitExceeded)

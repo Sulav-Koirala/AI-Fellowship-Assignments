@@ -17,6 +17,7 @@ if prompt := st.chat_input("Ask me anything..."):
     with st.spinner("Thinking..."):
         try:
             r = requests.post("http://backend:8000/chat", json={"message": prompt}, timeout=30)
+            data = r.json()
             reply = r.json().get("reply", "Sorry, something went wrong.")
         except Exception:
             reply = "Backend is unreachable right now, please try again."
