@@ -15,31 +15,6 @@ A retrieval-augmented, tool-using AI assistant with a production backend (async,
 - **Performance**: fully async backend (FastAPI + `AsyncOpenAI`), in-memory response cache
 - **Deployment**: Dockerfile + Docker Compose for the full stack
 
-## Project Structure
-
-Week 15/
-
-├── README.MD
-├── Architecture_diagram.png
-├── requirements.txt
-├── .env
-├── .env.example
-├── .gitignore
-├── docker-compose.yml
-├── Dockerfile
-├── .venv/ # local virtual environment (not committed)
-├── docs/ # source documents for RAG (replace with your own)
-├── app/
-│ ├── config.py # env vars, provider configs
-│ ├── prompts.py # system prompt, message builder
-│ ├── llm_client.py # async OpenAI-compatible client (Gemini / vLLM)
-│ ├── structured_output.py # JSON-schema-validated responses
-│ ├── tools.py # get_weather, calculator, tool dispatch
-│ ├── rag.py # chunking, embeddings, Chroma retrieval
-│ └── backend.py # FastAPI app: /chat endpoint, retry/fallback/cache
-└── ui/
-└── app.py # Streamlit chat frontend
-
 ## Prerequisites
 
 - Docker and Docker Compose
