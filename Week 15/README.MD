@@ -57,7 +57,10 @@ Requires a CUDA-capable GPU. Run this outside Docker, in its own terminal, **on 
 
 ```bash
 pip install vllm
-vllm serve mistralai/Mistral-7B-Instruct-v0.2 --port 8001
+VLLM_USE_FLASHINFER_SAMPLER=0 vllm serve Qwen/Qwen2.5-1.5B-Instruct --port 8001 \
+  --gpu-memory-utilization 0.90 \
+  --max-model-len 2048 \
+  --enforce-eager
 ```
 
 This exposes an OpenAI-compatible server at `http://localhost:8001/v1`, matching `VLLM_BASE_URL` in `.env`. The backend automatically falls back to this model if the Gemini API fails or times out.
@@ -66,7 +69,8 @@ This exposes an OpenAI-compatible server at `http://localhost:8001/v1`, matching
 
 - **Why Gemini Flash-Lite:** free tier, generally available (not preview), supports tool calling and structured output, and is inexpensive enough for heavy iteration during development.
 - **Why low temperature (0.1–0.2):** this is a fact-grounded RAG assistant; consistency matters more than creative variation.
-- **RAG grounding:** the system prompt explicitly instructs the model to defer to retrieved context over its own prior knowledge, and to say "I don't know" rather than fabricate an answer when context is insufficient.
+- **RAG grounding vs. small talk:** the system prompt distinguishes between greetings/small talk (answered naturally, no context needed) and genuine questions (answered strictly from retrieved context, the model is explicitly instructed to refuse rather than answer from its own training knowledge, even when confident it knows the answer).
+- **Retrieval quality filtering:** early testing surfaced a real chunking issue, a broken txt-extraction fragment scored as a spuriously close match to unrelated short queries like "hi", causing irrelevant document content to leak into unrelated answers. Fixed at two layers: chunks under 100 characters are dropped at ingestion time (removing extraction artifacts), and a cosine-distance threshold filters low-relevance matches at query time. This is a good illustration of why naive RAG systems need explicit relevance gating rather than always injecting the top-k results.
 - **ONNX conversion - not applicable:** the local model is served via vLLM, which uses its own optimized CUDA kernels and continuous batching for inference. Converting to ONNX would bypass these optimizations rather than improve on them, so it was not used.
 - **Caching:** identical prompts are cached in-memory (`response_cache`) keyed by a SHA-256 hash, avoiding repeat LLM calls for repeated questions.
 
@@ -76,3 +80,4 @@ This exposes an OpenAI-compatible server at `http://localhost:8001/v1`, matching
 - `calculator()` uses Python's `eval` in a restricted namespace, acceptable for this assignment's scope, not intended for production reuse.
 - Free-tier Gemini rate limits (~30 requests/minute) may throttle heavy local testing; the retry logic handles this gracefully.
 - The backend (port 8000) and the local vLLM server (port 8001) must run on different ports, they cannot both bind to 8000 on the same machine.
+- Known retrieval limitation: fixed-size character chunking can still split a logical section across two chunks, occasionally causing a relevant detail to be missed even when it exists in the source document. Section-aware or semantic chunking would address this; not implemented here given assignment scope.

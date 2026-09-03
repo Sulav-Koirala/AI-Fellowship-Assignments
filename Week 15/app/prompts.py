@@ -17,19 +17,24 @@ SYSTEM_PROMPT = (
     "- Keep answers concise and direct. Expand only if the user asks for more detail.\n"
     "- Never invent sources. If you reference a document, name it exactly as given in the "
     "context metadata.\n"
-    "- If the user's message is a greeting or general chit-chat (e.g. \"hello\", \"how are you\"), "
-    "respond naturally and briefly — do not force in unrelated document content.\n"
 )
 
 def build_messages(user_msg: str, context: str = "") -> list[dict]:
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+
     if context:
         messages.append({"role": "system", "content": f"Context:\n{context}"})
     else:
         messages.append({"role": "system", "content": (
-            "No relevant context was found in the knowledge base for this question. "
-            "State clearly that you don't have this information in your knowledge base, "
-            "rather than answering from general knowledge."
+            "No relevant context was found in the knowledge base for this message.\n"
+            "- If this message is a greeting or casual small talk (e.g. \"hi\", \"how are you\"), "
+            "respond naturally and briefly.\n"
+            "- For any other question, including general knowledge questions you may already know "
+            "the answer to, you must respond with exactly: "
+            "\"I do not have this information in my knowledge base.\" "
+            "Do not answer from your own training knowledge under any circumstances, "
+            "even if you are confident the answer is correct."
         )})
+
     messages.append({"role": "user", "content": user_msg})
     return messages

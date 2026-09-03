@@ -15,11 +15,16 @@ def chunk_text(text: str, chunk_size=800, overlap=120) -> list[str]:
     return chunks
 
 def ingest_document(doc_id: str, text: str):
+    if not text.strip():
+        return
     chunks = chunk_text(text)
+    good_chunks = [c.strip() for c in chunks if len(c.strip()) > 100]
+    if not good_chunks:
+        return
     collection.add(
-        documents=chunks,
-        ids=[f"{doc_id}_{i}" for i in range(len(chunks))],
-        metadatas=[{"source": doc_id} for _ in chunks],
+        documents=good_chunks,
+        ids=[f"{doc_id}_{i}" for i in range(len(good_chunks))],
+        metadatas=[{"source": doc_id} for _ in good_chunks],
     )
 
 def ingest_docs_folder(folder="docs"):
@@ -31,8 +36,16 @@ def ingest_docs_folder(folder="docs"):
             with open(path, "r", encoding="utf-8") as f:
                 ingest_document(filename, f.read())
 
-def retrieve(query: str, k=4) -> list[tuple[str, dict]]:
+def retrieve(query: str, k=4, max_distance=0.9) -> list[tuple[str, dict]]:
     if collection.count() == 0:
         return []
-    res = collection.query(query_texts=[query], n_results=min(k, collection.count()))
-    return list(zip(res["documents"][0], res["metadatas"][0]))
+    res = collection.query(
+        query_texts=[query],
+        n_results=min(k, collection.count()),
+        include=["documents", "metadatas", "distances"],
+    )
+    results = []
+    for doc, meta, dist in zip(res["documents"][0], res["metadatas"][0], res["distances"][0]):
+        if dist <= max_distance:
+            results.append((doc, meta))
+    return results
