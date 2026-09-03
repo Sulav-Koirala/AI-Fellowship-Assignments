@@ -44,10 +44,7 @@ async def call_model(messages, use_fallback=False) -> AssistantAnswer:
         }
         messages.append(assistant_msg)
         messages = await execute_tool_calls(messages, msg.tool_calls)
-
-    last_user_msg = next(m["content"] for m in reversed(messages) if m["role"] == "user")
-    context = next((m["content"].removeprefix("Context:\n") for m in messages
-                     if m["role"] == "system" and m["content"].startswith("Context:")), "")
+        
     return await ask_structured_from_messages(messages, use_fallback=use_fallback)
 
 async def call_with_fallback(messages):
