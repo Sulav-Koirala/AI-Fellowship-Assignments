@@ -11,7 +11,7 @@ from app.llm_client import ask
 from app.prompts import build_messages
 from app.rag import retrieve, ingest_docs_folder
 from app.tools import TOOLS, execute_tool_calls
-from app.struct_output import ask_structured, AssistantAnswer
+from app.struct_output import ask_structured_from_messages, AssistantAnswer
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -48,8 +48,7 @@ async def call_model(messages, use_fallback=False) -> AssistantAnswer:
     last_user_msg = next(m["content"] for m in reversed(messages) if m["role"] == "user")
     context = next((m["content"].removeprefix("Context:\n") for m in messages
                      if m["role"] == "system" and m["content"].startswith("Context:")), "")
-    return await ask_structured(last_user_msg, context=context, use_fallback=use_fallback)
-
+    return await ask_structured_from_messages(messages, use_fallback=use_fallback)
 
 async def call_with_fallback(messages):
     try:

@@ -8,13 +8,10 @@ class AssistantAnswer(BaseModel):
     sources: list[str] = []
     confidence: float
 
-async def ask_structured(user_msg: str, context: str = "", use_fallback=False) -> AssistantAnswer:
-    instruction = (
-        f"{user_msg}\n\n"
+async def ask_structured_from_messages(messages, use_fallback=False) -> AssistantAnswer:
+    messages = messages + [{"role": "user", "content":
         "Respond with ONLY a valid JSON object, no markdown fences, matching exactly this shape:\n"
-        '{"answer": string, "sources": string[], "confidence": number between 0 and 1}'
-    )
-    messages = build_messages(instruction, context=context)
+        '{"answer": string, "sources": string[], "confidence": number between 0 and 1}'}]
 
     last_error = None
     for attempt in range(2):
