@@ -1,0 +1,78 @@
+Retrieval-Augmented Generation (RAG)
+
+What is RAG?
+Retrieval-Augmented Generation, or RAG, is a technique that combines two
+separate steps to produce more accurate and trustworthy answers from a
+large language model (LLM). The first step is retrieval: given a user's
+question, the system searches an external knowledge base for the pieces
+of text most relevant to that question. The second step is generation:
+those retrieved pieces of text are inserted into the prompt sent to the
+LLM, and the model uses them as grounding material when writing its answer.
+
+Why RAG exists
+LLMs are trained once, on a fixed snapshot of data, and have no built-in
+way to know about information created after their training cutoff or
+about private documents that were never part of their training data at
+all. RAG solves both problems at once. Because the knowledge base can be
+updated at any time by simply adding, removing, or editing documents, the
+assistant's effective knowledge stays current without ever retraining the
+underlying model. And because the knowledge base can contain your own
+private documents, the assistant can answer questions about internal
+material it was never trained on.
+
+RAG also directly reduces hallucination. When a model is asked a question
+it does not actually know the answer to, it will sometimes generate a
+plausible-sounding but incorrect answer rather than admitting uncertainty.
+By grounding the model in retrieved text and instructing it to answer only
+from that text, RAG gives the model a concrete, checkable source to draw
+from, and a clear signal for when it genuinely does not have enough
+information to answer.
+
+The three core components of a RAG pipeline
+
+1. Chunking
+Documents are rarely searched as whole units, because they are usually too
+long to fit into a model's context window and because most of a long
+document is irrelevant to any single question. Instead, documents are
+split into smaller passages called chunks, typically a few hundred words
+each. Consecutive chunks usually overlap slightly so that a sentence or
+idea spanning a chunk boundary is not cut in a way that loses its meaning.
+
+2. Embeddings
+Each chunk is converted into a numerical vector, called an embedding,
+using an embedding model. This vector captures the semantic meaning of
+the text, so that chunks with similar meaning end up as vectors that are
+close together in the embedding space, even if they do not share exact
+words. The same embedding model is used to convert the user's query into
+a vector at search time, so that the query and the chunks can be directly
+compared.
+
+3. Vector database
+The chunk embeddings are stored in a vector database, a type of database
+built specifically for fast similarity search over large collections of
+vectors. When a query comes in, the vector database returns the chunks
+whose embeddings are closest to the query's embedding, typically the top
+three to five most relevant chunks. These chunks are then inserted into
+the prompt sent to the LLM.
+
+A typical RAG request, end to end
+1. The user asks a question.
+2. The question is converted into an embedding using the same embedding
+   model used during ingestion.
+3. The vector database is searched for the chunks most similar to that
+   embedding.
+4. The retrieved chunks are combined into a context block.
+5. The context block, the original question, and a system prompt
+   instructing the model to answer using the provided context are sent
+   to the LLM.
+6. The LLM generates an answer grounded in the retrieved chunks, ideally
+   citing which source document each fact came from.
+
+Limitations of RAG
+Retrieval quality is not perfect. If the chunking strategy is too coarse,
+relevant details can be diluted by irrelevant surrounding text. If it is
+too fine, important context can be lost. If the knowledge base simply
+does not contain information relevant to a question, a well-designed RAG
+system should say so explicitly rather than falling back on the model's
+own general knowledge, since doing so would defeat the purpose of
+grounding the answer in verified source material.

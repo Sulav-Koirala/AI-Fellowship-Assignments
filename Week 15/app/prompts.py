@@ -23,5 +23,11 @@ def build_messages(user_msg: str, context: str = "") -> list[dict]:
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     if context:
         messages.append({"role": "system", "content": f"Context:\n{context}"})
+    else:
+        messages.append({"role": "system", "content": (
+            "No relevant context was found in the knowledge base for this question. "
+            "State clearly that you don't have this information in your knowledge base, "
+            "rather than answering from general knowledge."
+        )})
     messages.append({"role": "user", "content": user_msg})
     return messages
