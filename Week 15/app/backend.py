@@ -85,7 +85,7 @@ async def chat_endpoint(request: Request, body: ChatRequest):
 
     payload = {"answer": reply.answer, "sources": reply.sources, "confidence": reply.confidence}
     response_cache[key] = payload
-    return payload | {"cached": False}
+    return {"reply": payload, "cached": False}
 
 
 @app.exception_handler(RateLimitExceeded)

@@ -18,9 +18,10 @@ if prompt := st.chat_input("Ask me anything..."):
         try:
             r = requests.post("http://backend:8000/chat", json={"message": prompt}, timeout=30)
             data = r.json()
-            reply = r.json().get("reply", "Sorry, something went wrong.")
-        except Exception:
-            reply = "Backend is unreachable right now, please try again."
+            reply_obj = data.get("reply", "Sorry, something went wrong.")
+            reply = reply_obj["answer"] if isinstance(reply_obj, dict) else reply_obj
+        except Exception as e:
+            reply = f"Backend is unreachable right now, please try again."
 
     st.session_state.history.append(("assistant", reply))
     st.chat_message("assistant").write(reply)
