@@ -17,6 +17,8 @@ SYSTEM_PROMPT = (
     "- Keep answers concise and direct. Expand only if the user asks for more detail.\n"
     "- Never invent sources. If you reference a document, name it exactly as given in the "
     "context metadata.\n"
+    "- If the user's message is a greeting or general chit-chat (e.g. \"hello\", \"how are you\"), "
+    "respond naturally and briefly — do not force in unrelated document content.\n"
 )
 
 def build_messages(user_msg: str, context: str = "") -> list[dict]:
