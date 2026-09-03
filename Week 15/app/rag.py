@@ -31,16 +31,8 @@ def ingest_docs_folder(folder="docs"):
             with open(path, "r", encoding="utf-8") as f:
                 ingest_document(filename, f.read())
 
-def retrieve(query: str, k=4, max_distance=0.8) -> list[tuple[str, dict]]:
+def retrieve(query: str, k=4) -> list[tuple[str, dict]]:
     if collection.count() == 0:
         return []
-    res = collection.query(
-        query_texts=[query],
-        n_results=min(k, collection.count()),
-        include=["documents", "metadatas", "distances"],
-    )
-    results = []
-    for doc, meta, dist in zip(res["documents"][0], res["metadatas"][0], res["distances"][0]):
-        if dist <= max_distance: 
-            results.append((doc, meta))
-    return results
+    res = collection.query(query_texts=[query], n_results=min(k, collection.count()))
+    return list(zip(res["documents"][0], res["metadatas"][0]))
