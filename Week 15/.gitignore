@@ -6,3 +6,5 @@ chroma_db/
 .venv/
 venv/
 *.log
+mlruns/
+mlflow.db
