@@ -1,0 +1,34 @@
+[project]
+name = "week15-assistant"
+version = "0.1.0"
+description = "Weeks 15/16 RAG + agentic assistant; Week 17 MLOps (versioned prompts, per-query traces, LLM-judge regression)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "openai>=1.50",
+    "chromadb>=1.0",
+    "sentence-transformers>=3.0",
+    "torch>=2.2",
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "streamlit>=1.38",
+    "slowapi>=0.1.9",
+    "tenacity>=8.5",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+    "requests>=2.32",
+    "mlflow>=2.18,<3",
+    "evidently>=0.6",
+    "apache-airflow>=3.0.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
