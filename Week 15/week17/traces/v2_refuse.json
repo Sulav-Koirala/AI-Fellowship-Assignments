@@ -1,0 +1,55 @@
+{
+  "version": "v2",
+  "id": "refuse",
+  "kind": "refuse",
+  "query": "Who won the 2022 FIFA World Cup final?",
+  "reference": "The knowledge base does not cover the 2022 FIFA World Cup, so the assistant should decline and state it cannot answer from the available information, rather than naming a winner.",
+  "answer": "I could not ground a confident answer in the available evidence, so I cannot answer this reliably.",
+  "status": "unverified",
+  "verified": false,
+  "iterations": 5,
+  "trajectory": [
+    "search:who won the 2022 FIFA World Cup final?",
+    "search:2022 FIFA World Cup winner",
+    "search:Who won the 2022 FIFA World Cup?",
+    "nudge->finish",
+    "verify:INSUFFICIENT"
+  ],
+  "tool_calls": [
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "who won the 2022 FIFA World Cup final?"
+      },
+      "ok": true
+    },
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "2022 FIFA World Cup winner"
+      },
+      "ok": true
+    },
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "Who won the 2022 FIFA World Cup?"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "sources": [],
+        "answer": "Argentina won the 2022 FIFA World Cup final, defeating France in a penalty shootout after the match ended 3–3 following extra time.",
+        "confidence": 1
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 2164,
+    "completion": 184,
+    "total": 2348
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "version": "v3",
+  "id": "kb_direct",
+  "kind": "kb",
+  "query": "What are the three core components of a RAG pipeline?",
+  "reference": "A RAG pipeline has three core components: chunking the source documents, embedding the chunks into vectors, and storing/retrieving them from a vector store.",
+  "answer": "The three core components of a RAG pipeline are:\n\n1. **Chunking**: Documents are split into smaller, manageable passages (typically a few hundred words each) to ensure they fit into the model's context window and remain relevant to specific questions.\n2. **Embeddings**: These are used to represent text chunks as vectors, allowing the system to perform similarity searches over large collections of data.\n3. **Retrieval/Generation (implied as the process)**: While the text explicitly lists \"Chunking\" and \"Embeddings\" as the first two, the overall pipeline involves searching a vector database for relevant chunks and then using an LLM to generate an answer grounded in that retrieved context. \n\n*Note: The provided text explicitly introduces \"Chunking\" and \"Embeddings\" as the first two components, and describes the overall process of retrieval and generation as the core mechanism.*",
+  "status": "verified",
+  "verified": true,
+  "iterations": 2,
+  "trajectory": [
+    "search:three core components of a RAG pipeline",
+    "verify:OK"
+  ],
+  "tool_calls": [
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "three core components of a RAG pipeline"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "sources": [
+          "example.txt"
+        ],
+        "confidence": 0.95,
+        "answer": "The three core components of a RAG pipeline are:\n\n1. **Chunking**: Documents are split into smaller, manageable passages (typically a few hundred words each) to ensure they fit into the model's context window and remain relevant to specific questions.\n2. **Embeddings**: These are used to represent text chunks as vectors, allowing the system to perform similarity searches over large collections of data.\n3. **Retrieval/Generation (implied as the process)**: While the text explicitly lists \"Chunking\" and \"Embeddings\" as the first two, the overall pipeline involves searching a vector database for relevant chunks and then using an LLM to generate an answer grounded in that retrieved context. \n\n*Note: The provided text explicitly introduces \"Chunking\" and \"Embeddings\" as the first two components, and describes the overall process of retrieval and generation as the core mechanism.*"
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 2785,
+    "completion": 263,
+    "total": 3048
+  }
+}

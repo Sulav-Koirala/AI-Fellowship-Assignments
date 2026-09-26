@@ -1,0 +1,15 @@
+{"version": "v1", "id": "kb_direct", "kind": "kb", "correctness": "INCORRECT", "decline": "OK", "passed": false}
+{"version": "v1", "id": "kb_reword", "kind": "kb", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v1", "id": "math", "kind": "tool", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v1", "id": "weather", "kind": "tool", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v1", "id": "refuse", "kind": "refuse", "correctness": "CORRECT", "decline": "DECLINE", "passed": true}
+{"version": "v2", "id": "kb_direct", "kind": "kb", "correctness": "INCORRECT", "decline": "OK", "passed": false}
+{"version": "v2", "id": "kb_reword", "kind": "kb", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v2", "id": "math", "kind": "tool", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v2", "id": "weather", "kind": "tool", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v2", "id": "refuse", "kind": "refuse", "correctness": "CORRECT", "decline": "DECLINE", "passed": true}
+{"version": "v3", "id": "kb_direct", "kind": "kb", "correctness": "INCORRECT", "decline": "OK", "passed": false}
+{"version": "v3", "id": "kb_reword", "kind": "kb", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v3", "id": "math", "kind": "tool", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v3", "id": "weather", "kind": "tool", "correctness": "CORRECT", "decline": "OK", "passed": true}
+{"version": "v3", "id": "refuse", "kind": "refuse", "correctness": "CORRECT", "decline": "DECLINE", "passed": true}

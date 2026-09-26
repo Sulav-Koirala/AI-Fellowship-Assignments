@@ -1,0 +1,40 @@
+{
+  "version": "v1",
+  "id": "kb_reword",
+  "kind": "kb",
+  "query": "When the documents do not cover a question, how should a grounded assistant behave?",
+  "reference": "It should explicitly acknowledge that the documents do not contain the answer and say so, rather than answering from prior knowledge or guessing.",
+  "answer": "When a knowledge base does not contain information relevant to a question, a well-designed RAG (grounded) assistant should explicitly state that it does not have the information, rather than attempting to answer using the model's own general knowledge. This approach prevents the model from hallucinating or defaulting to unverified information, which would undermine the purpose of grounding the answer in verified source material.",
+  "status": "verified",
+  "verified": true,
+  "iterations": 2,
+  "trajectory": [
+    "search:how should a grounded assistant behave w",
+    "verify:OK"
+  ],
+  "tool_calls": [
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "how should a grounded assistant behave when documents do not cover a question"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "sources": [
+          "example.txt"
+        ],
+        "answer": "When a knowledge base does not contain information relevant to a question, a well-designed RAG (grounded) assistant should explicitly state that it does not have the information, rather than attempting to answer using the model's own general knowledge. This approach prevents the model from hallucinating or defaulting to unverified information, which would undermine the purpose of grounding the answer in verified source material.",
+        "confidence": 1
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 1593,
+    "completion": 176,
+    "total": 1769
+  }
+}

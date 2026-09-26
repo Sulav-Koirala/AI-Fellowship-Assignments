@@ -1,0 +1,40 @@
+{
+  "version": "v2",
+  "id": "kb_direct",
+  "kind": "kb",
+  "query": "What are the three core components of a RAG pipeline?",
+  "reference": "A RAG pipeline has three core components: chunking the source documents, embedding the chunks into vectors, and storing/retrieving them from a vector store.",
+  "answer": "The three core components of a RAG pipeline are:\n\n1. **Chunking:** Documents are split into smaller, manageable passages (chunks) because they are often too long for a model's context window and contain irrelevant information. These chunks often overlap to preserve context.\n2. **Embeddings:** (Note: While the provided text lists \"Embeddings\" as the second core component, the detailed description for this section was cut off in the source material.)\n3. **Retrieval and Generation:** The system searches the knowledge base for relevant chunks, which are then sent to the LLM to generate a grounded answer. (The provided text outlines the full process, including retrieval and generation as part of the pipeline's operation.)",
+  "status": "verified",
+  "verified": true,
+  "iterations": 2,
+  "trajectory": [
+    "search:three core components of a RAG pipeline",
+    "verify:OK"
+  ],
+  "tool_calls": [
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "three core components of a RAG pipeline"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "sources": [
+          "example.txt"
+        ],
+        "confidence": 0.9,
+        "answer": "The three core components of a RAG pipeline are:\n\n1. **Chunking:** Documents are split into smaller, manageable passages (chunks) because they are often too long for a model's context window and contain irrelevant information. These chunks often overlap to preserve context.\n2. **Embeddings:** (Note: While the provided text lists \"Embeddings\" as the second core component, the detailed description for this section was cut off in the source material.)\n3. **Retrieval and Generation:** The system searches the knowledge base for relevant chunks, which are then sent to the LLM to generate a grounded answer. (The provided text outlines the full process, including retrieval and generation as part of the pipeline's operation.)"
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 2377,
+    "completion": 238,
+    "total": 2615
+  }
+}

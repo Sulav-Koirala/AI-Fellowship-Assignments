@@ -1,0 +1,40 @@
+{
+  "version": "v3",
+  "id": "math",
+  "kind": "tool",
+  "query": "What is 197 multiplied by 34?",
+  "reference": "197 multiplied by 34 is 6698.",
+  "answer": "197 multiplied by 34 is 6,698.",
+  "status": "verified",
+  "verified": true,
+  "iterations": 2,
+  "trajectory": [
+    "calculator",
+    "verify:OK"
+  ],
+  "tool_calls": [
+    {
+      "name": "calculator",
+      "args": {
+        "expression": "197 * 34"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "sources": [
+          "calculator"
+        ],
+        "answer": "197 multiplied by 34 is 6,698.",
+        "confidence": 1
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 882,
+    "completion": 79,
+    "total": 961
+  }
+}

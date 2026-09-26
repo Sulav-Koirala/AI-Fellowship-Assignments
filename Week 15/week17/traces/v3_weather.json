@@ -1,0 +1,40 @@
+{
+  "version": "v3",
+  "id": "weather",
+  "kind": "tool",
+  "query": "What is the current weather in Tokyo?",
+  "reference": "A current weather reading for Tokyo taken from the weather tool, reporting the temperature in °C and/or conditions.",
+  "answer": "The current temperature in Tokyo is 17.7°C.",
+  "status": "verified",
+  "verified": true,
+  "iterations": 2,
+  "trajectory": [
+    "get_weather",
+    "verify:OK"
+  ],
+  "tool_calls": [
+    {
+      "name": "get_weather",
+      "args": {
+        "city": "Tokyo"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "confidence": 1,
+        "answer": "The current temperature in Tokyo is 17.7°C.",
+        "sources": [
+          "get_weather"
+        ]
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 899,
+    "completion": 80,
+    "total": 979
+  }
+}

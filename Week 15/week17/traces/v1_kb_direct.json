@@ -1,0 +1,40 @@
+{
+  "version": "v1",
+  "id": "kb_direct",
+  "kind": "kb",
+  "query": "What are the three core components of a RAG pipeline?",
+  "reference": "A RAG pipeline has three core components: chunking the source documents, embedding the chunks into vectors, and storing/retrieving them from a vector store.",
+  "answer": "The three core components of a RAG pipeline are:\n\n1. **Chunking**: Documents are split into smaller, manageable passages (typically a few hundred words each) to fit into a model's context window and ensure relevance. These chunks often overlap slightly to preserve meaning across boundaries.\n2. **Embeddings**: (Note: While the provided text introduces this as the second component and begins to describe it, the full explanation of the third component is not explicitly labeled in the provided source text.) \n\n*Self-correction/Refinement:* Based on the provided documents, I can confirm \"Chunking\" and \"Embeddings\" are the first two, but the text cuts off before explicitly naming the third component. I have sufficient information to answer for the first two but cannot confirm the third from the provided source.",
+  "status": "verified",
+  "verified": true,
+  "iterations": 2,
+  "trajectory": [
+    "search:three core components of a RAG pipeline",
+    "verify:OK"
+  ],
+  "tool_calls": [
+    {
+      "name": "search_knowledge_base",
+      "args": {
+        "query": "three core components of a RAG pipeline"
+      },
+      "ok": true
+    },
+    {
+      "name": "finish",
+      "args": {
+        "answer": "The three core components of a RAG pipeline are:\n\n1. **Chunking**: Documents are split into smaller, manageable passages (typically a few hundred words each) to fit into a model's context window and ensure relevance. These chunks often overlap slightly to preserve meaning across boundaries.\n2. **Embeddings**: (Note: While the provided text introduces this as the second component and begins to describe it, the full explanation of the third component is not explicitly labeled in the provided source text.) \n\n*Self-correction/Refinement:* Based on the provided documents, I can confirm \"Chunking\" and \"Embeddings\" are the first two, but the text cuts off before explicitly naming the third component. I have sufficient information to answer for the first two but cannot confirm the third from the provided source.",
+        "sources": [
+          "example.txt"
+        ],
+        "confidence": 0.7
+      },
+      "ok": true
+    }
+  ],
+  "tokens": {
+    "prompt": 1714,
+    "completion": 258,
+    "total": 1972
+  }
+}
