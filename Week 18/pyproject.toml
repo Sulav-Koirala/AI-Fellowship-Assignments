@@ -1,0 +1,9 @@
+[project]
+name = "week18-guardrails"
+version = "0.1.0"
+description = "Week 18: input and output guardrails for the Week 15/16 assistant"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[tool.uv]
+package = false
